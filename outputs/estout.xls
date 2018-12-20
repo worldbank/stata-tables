@@ -1,0 +1,18 @@
+	reg1	reg2	reg3	reg4
+	b	b	b	b
+marriage	.2599521		.189777	.1912112
+pop	.0027097		.003416	.0032463
+popurban		1.34e-07		
+1.region			0	
+2.region			6362.748	
+3.region			9215.597	
+4.region			9627.296	
+1.region#0.binary				0
+1.region#1.binary				-4909.579
+2.region#0.binary				57.012
+2.region#1.binary				5276.915
+3.region#0.binary				3224.045
+3.region#1.binary				8208.911
+4.region#0.binary				4464.919
+4.region#1.binary				13461.28
+_cons	-963.3429	29.09292	-7786.167	-4195.932
