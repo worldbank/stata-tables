@@ -34,9 +34,9 @@ _estout_, by Ben Jann, has lots of options. You can get it to do basically anyth
 
 ### xml_tab
 
-*xml_tab*, by Zurab Sajaia and Michael Lokshin, was for many years a good go-to command for exporting regression results to Excel. It has a syntax that could be reasonably minimized to a reasonable set of options to get what was basically a useable table.
+*xml_tab*, by Zurab Sajaia and Michael Lokshin, was for many years a good go-to command for exporting regression results to Excel. It has a syntax that could be reasonably minimized to a reasonable set of options to get what was basically a useable table. I
 
-However, *xml_tab* has fallen a bit out of date. Due to Office updates, it seems to sometimes create unreadable files for some versions of Microsoft Excel, which is kind of the point. It was a sufficient hack to rename the file to .xls to make the underlying XML readable before, but now this doesn't seem to work on every machine.
+However, due to Office updates, it seems to sometimes create unreadable files for some versions of Microsoft Excel, which is kind of the point. It was a sufficient hack to rename the file to .xls to make the underlying XML readable before, but now this doesn't seem to work on every machine.
 
 ### outwrite
 
