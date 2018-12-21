@@ -28,20 +28,25 @@ sysuse census.dta , clear
 
 // Export tables ********************************
 
-	local regressions reg1 reg2 reg3 reg4
+	global regressions reg1 reg2 reg3 reg4
 
+	// outreg2
+	outreg2 [${regressions}] ///
+	using "outputs/outreg.xls" ///
+	, replace excel
+-
 	// estout
-	estout `regressions' ///
+	estout ${regressions} ///
 	using "outputs/estout.xls" ///
 	, replace
 
 	// xml_tab
-	xml_tab `regressions' ///
+	xml_tab ${regressions} ///
 	, save("outputs/xml_tab.xls") ///
 		replace below
 
 	// outwrite
-	outwrite `regressions' ///
+	outwrite ${regressions} ///
 	using "outputs/outwrite.xlsx" ///
 	, replace
 
