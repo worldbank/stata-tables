@@ -1,0 +1,152 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage[flushleft]{threeparttable}
+
+%\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\title{How to adjust LaTeX table notes \\  \large ({\LaTeX} code that created this document can be found here)}
+
+\begin{document}
+
+\maketitle
+\section{Background}
+
+Adjusting the width of table notes is a common source of problems when compiling {\LaTeX} documents. If a note is too large to be displayed in one line, it will typically cause tables to be extended beyond the text width and display incorrectly. Table \ref{longnote} shows an example.\footnote{Stata code that created this table can be found \href{https://gist.github.com/luizaandrade/83bc1bae403a50616c82dd33c54b57b3}{here}.}
+
+\begin{table}[H]
+	\caption{This table does not fit into the page}
+	\label{longnote}
+	\input{tbl_longnote}
+\end{table}
+
+There are two difference ways to solve this issue: using the \texttt{threeparttable} package, and using regular table configurations. The only problem with using the \texttt{threeparttable} package is that you need to load one more package, but it's more flexible in dealing with wide tables and takes roughly the same coding in Stata as it would with regular tables. Using regular tables doesn't require any extra packages, but can be tricky to adjust for wide tables, and involves more hard coding of {\LaTeX} options in Stata. In particular, you need to enter the number of columns in your table, so if you add a new column, you will also need to edit the notes. Below are some examples of both.
+
+\section{Editing regular table layout}
+
+The table above was exported from Stata to {\LaTeX} using \texttt{esttab}, and the resulting \texttt{.tex} file contains the following code:
+
+\begin{verbatim}
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} \\
+\hline
+Positive Opportunity Cost& -0.189\sym{***}& -0.200\sym{***}& -0.196\sym{***}\\
+& (0.0153) & (0.0186) & (0.0182) \\
+[1em]
+Low education (Middle school or less)&& 0.0311 & 0.0257 \\
+&& (0.0262) & (0.0265) \\
+[1em]
+Young (18 to 25 years-old)&& 0.0180 & 0.0254 \\
+&& (0.0279) & (0.0272) \\
+[1em]
+Employed&&0.00851 & 0.0163 \\
+&& (0.0279) & (0.0272) \\
+[1em]
+High self-reported SES&& 0.0104 & 0.0214 \\
+&& (0.0402) & (0.0397) \\
+[1em]
+Constant&0.293\sym{***}&0.334\sym{***}&0.306\sym{***}\\
+& (0.0158) & (0.0455) & (0.0473) \\
+\hline
+Observations&17439 &13959 &13959 \\
+Quartile controls& No &Yes &Yes \\
+Group fixed effects& No & No &Yes \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \lipsum[1]}\\
+\end{tabular}
+}
+\end{verbatim}
+
+
+Note that the note is added in the line that reads 
+
+\begin{verbatim}
+	\multicolumn{4}{l}{\footnotesize \lipsum[1]}\\
+\end{verbatim}
+
+The \texttt{\{l\}} option creates a left-justified column. Replacing this option with \texttt{\{p\{\textbackslash textwidth\}\}} will create a paragraph column instead, adding line breaks. The table will look like table \ref{notlongnote}. To remove the extra spacing, write \texttt{\{@\{\}p\{\textbackslash textwidth\}\}}, and the result will be spaced as in table \ref{notlongnote2}.
+
+
+\begin{table}[H]
+	\caption{This table fits into the page}
+	\label{notlongnote}
+{
+	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+	\begin{tabular}{l*{3}{c}}
+		\hline\hline
+		&\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+		\hline
+		Positive Opportunity Cost&      -0.189\sym{***}&      -0.200\sym{***}&      -0.196\sym{***}\\
+		&    (0.0153)         &    (0.0186)         &    (0.0182)         \\
+		[1em]
+		Low education (Middle school or less)&                     &      0.0311         &      0.0257         \\
+		&                     &    (0.0262)         &    (0.0265)         \\
+		[1em]
+		Young (18 to 25 years-old)&                     &      0.0180         &      0.0254         \\
+		&                     &    (0.0279)         &    (0.0272)         \\
+		[1em]
+		Employed            &                     &     0.00851         &      0.0163         \\
+		&                     &    (0.0279)         &    (0.0272)         \\
+		[1em]
+		High self-reported SES&                     &      0.0104         &      0.0214         \\
+		&                     &    (0.0402)         &    (0.0397)         \\
+		[1em]
+		Constant            &       0.293\sym{***}&       0.334\sym{***}&       0.306\sym{***}\\
+		&    (0.0158)         &    (0.0455)         &    (0.0473)         \\
+		\hline
+		Observations        &       17439         &       13959         &       13959         \\
+		Quartile controls   &          No         &         Yes         &         Yes         \\
+		Group fixed effects &          No         &          No         &         Yes         \\
+		\hline\hline
+		\multicolumn{4}{p{\textwidth}}{\footnotesize \lipsum[1]}\\
+	\end{tabular}
+}
+\end{table}
+
+\begin{table}[H]
+	\caption{This table fits into the page and has no spacing in the notes}
+	\label{notlongnote2}
+		\input{tbl_fittednote}
+\end{table}
+
+To export this table from Stata, you will need to use the option \texttt{postfoot} to manually input the {\LaTeX} code that closes your table. This means that all {\LaTeX} code that comes after the last line of the results, i.e.,
+\begin{verbatim}
+	Group fixed effects & No & No & Yes \\
+\end{verbatim}
+Needs to be written manually. Code to do this can be found in \href{https://gist.github.com/luizaandrade/568f18158b9f154f531da55d98653c77}{this gist}.
+
+\section{The \texttt{threeparttable} package}
+
+To load the \texttt{threeparttable} package, 
+
+%\input{table9}
+
+%\begin{adjustbox}{max width = \textwidth}
+%	\input{table11}
+%\end{adjustbox}
+
+
+%\begin{table}[h]
+%	\begin{threeparttable}
+%		\input{table10}
+%	\end{threeparttable}
+%\end{table}
+
+%\begin{table}[h]
+%	\begin{adjustbox}{max width = \textwidth}
+%	\begin{threeparttable}
+%		\input{table13}
+%	\end{threeparttable}
+%	\end{adjustbox}
+%\end{table}
+
+
+\end{document}
+
