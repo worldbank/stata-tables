@@ -7,16 +7,16 @@
 \usepackage{hyperref}
 \usepackage[flushleft]{threeparttable}
 
-%\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 
-\title{How to adjust LaTeX table notes \\  \large ({\LaTeX} code that created this document can be found here)}
+\title{How to adjust LaTeX table notes \\  \large ({\LaTeX} code that created this document can be found \href{https://github.com/bbdaniels/stata-tables/blob/latex-tables-resources/outputs/table_notes.tex}{here})}
 
 \begin{document}
 
 \maketitle
 \section{Background}
 
-Adjusting the width of table notes is a common source of problems when compiling {\LaTeX} documents. If a note is too large to be displayed in one line, it will typically cause tables to be extended beyond the text width and display incorrectly. Table \ref{longnote} shows an example.\footnote{Stata code that created this table can be found \href{https://gist.github.com/luizaandrade/83bc1bae403a50616c82dd33c54b57b3}{here}.}
+Adjusting the width of table notes is a common source of problems when compiling {\LaTeX} documents. If a note is too large to be displayed in one line, it will typically cause tables to be extended beyond the text width and display incorrectly. Table \ref{longnote} shows an example.\footnote{All tables in this document were created using Stata's \href{http://repec.sowi.unibe.ch/stata/estout/}{\texttt{estout}} package. The data preparation and regressions used for all tables in this document can be found \href{https://gist.github.com/luizaandrade/778253b98a9c22b62e3cb07bc3655fbc}{here}. Stata code that created Table \ref{longnote} can be found \href{https://gist.github.com/luizaandrade/83bc1bae403a50616c82dd33c54b57b3}{here}. }
 
 \begin{table}[H]
 	\caption{This table does not fit into the page}
@@ -26,35 +26,40 @@ Adjusting the width of table notes is a common source of problems when compiling
 
 The table above was exported from Stata to {\LaTeX} using \texttt{esttab}, and the resulting \texttt{.tex} file contains the following code:
 
-\begin{tiny}
+\begin{samepage}
+	\scriptsize
 	\begin{verbatim}
-	{
-	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-	\begin{tabular}{l*{4}{c}}
-	\hline\hline
-	&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
-	\hline
-	Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
-	& (754.4) & (772.1) & (767.4) & (1651.6) \\
-	[1em]
-	Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
-	\hline
-	Observations & 74 & 74 & 74 & 74 \\
-	Model controls & No & Yes & Yes & Yes \\
-	Make fixed effects& No & No & No & Yes \\
-	\hline\hline 
-	\multicolumn{5}{l}{\footnotesize \lipsum[1] }\\ 
-	\end{tabular}
-	}
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
+\hline
+Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
+& (754.4) & (772.1) & (767.4) & (1651.6) \\
+[1em]
+Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\
+& (411.4) & (3472.3) & (6220.8) & (4579.7) \\
+\hline
+Observations & 74 & 74 & 74 & 74 \\
+Model controls & No & Yes & Yes & Yes \\
+Make fixed effects& No & No & No & Yes \\
+\hline\hline 
+\multicolumn{5}{l}{\footnotesize \lipsum[1] }\\ 
+\end{tabular}
+}
 	\end{verbatim}
-\end{tiny}
+\end{samepage}
 
 
-There are two difference ways to solve this issue: using the \texttt{threeparttable} package, and using regular table configurations. The only problem with using the \texttt{threeparttable} package is that you need to load one more package, but it's more flexible in dealing with wide tables and takes roughly the same coding in Stata as it would with regular tables. Using regular tables doesn't require any extra packages, but can be tricky to adjust for wide tables, and involves more hard coding of {\LaTeX} options in Stata. In particular, you need to enter the number of columns in your table, so if you add a new column, you will also need to edit the notes. Below are some examples of both.
+
+There are two difference ways to solve this issue: using a package called \href{http://mirrors.rit.edu/CTAN/macros/latex/contrib/threeparttable/threeparttable.pdf}{\texttt{threeparttable}}, and using regular table configurations. The only problem with using the \texttt{threeparttable} package is that you need to load one more package, but it's more flexible in dealing with wide tables and takes roughly the same coding in Stata as it would with regular tables. This method will be discussed first, as it's our preferred way to do it.
+
+Using regular tables doesn't require any extra packages, but can be tricky to adjust for wide tables, and involves more hard coding of {\LaTeX} options in Stata. In particular, you need to enter the number of columns in your table, so if you add a new column, you will also need to edit the notes. The solution in this case will be shown, as well as why it's not ideal to use it.
 
 \section{The \texttt{threeparttable} package}
 
-To load the \texttt{threeparttable} package, add the following code to your preamble. The following code creates a similar table, but adjusts the text width to fit the page.
+To load the \texttt{threeparttable} package, add the following code to your preamble.
 
 \begin{verbatim}
 \documentclass[11pt,a4paper]{article}
@@ -64,7 +69,28 @@ To load the \texttt{threeparttable} package, add the following code to your prea
 \begin{document}
 \end{verbatim}
 
-\begin{tiny}
+This package allows you to create a \textit{three part table} environment that has the following structure:
+
+\begin{samepage}
+\begin{verbatim}
+\begin{table}
+    \begin{threeparttable}
+        \caption{...}
+        \begin{tabular}
+            ... your table ...
+        \end{tabular}
+        \begin{tablenotes}
+            \item [1] the first note ...
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+\end{verbatim}
+\end{samepage}
+
+The following code creates a table similar to Table \ref{longnote}, but adjusts the text width to fit the page:
+
+\begin{samepage}
+	\scriptsize
 	\begin{verbatim}
 	\begin{threeparttable}
 	
@@ -78,7 +104,8 @@ To load the \texttt{threeparttable} package, add the following code to your prea
 	Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
 	& (754.4) & (772.1) & (767.4) & (1651.6) \\
 	[1em]
-	Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
+	Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ 
+	& (411.4) & (3472.3) & (6220.8) & (4579.7) \\
 	\hline
 	Observations & 74 & 74 & 74 & 74 \\
 	Model controls & No & Yes & Yes & Yes \\
@@ -94,73 +121,35 @@ To load the \texttt{threeparttable} package, add the following code to your prea
 	
 	\end{threeparttable}
 	\end{verbatim}
-\end{tiny}
+\end{samepage}
 
+This code creates Table \ref{threeparttable}. To export this table from Stata, you will need to use \texttt{esttab}'s option \texttt{postfoot} and manually input the {\LaTeX} code that closes the table. This means that all {\LaTeX} code that comes after the last line of the results, i.e.,
+\begin{verbatim}
+Make fixed effects& No & No & No & Yes \\
+\end{verbatim}
+needs to be written manually. The code used to create this table can be found \href{https://gist.github.com/luizaandrade/a9b830f4284b414ffe8d8271a83cbbe9}{here}.
 
 \begin{table}[h]
 	\begin{threeparttable}
-		{
-			\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-			\begin{tabular}{l*{4}{c}}
-				\hline\hline
-				&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
-				\hline
-				Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
-				& (754.4) & (772.1) & (767.4) & (1651.6) \\
-				[1em]
-				Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
-				\hline
-				Observations & 74 & 74 & 74 & 74 \\
-				Model controls & No & Yes & Yes & Yes \\
-				Make fixed effects& No & No & No & Yes \\
-				\hline\hline 
-			\end{tabular}
-			\begin{tablenotes} 
-				\footnotesize \item \lipsum[1] 
-			\end{tablenotes}
-		}
+	\caption{This table fits the page}
+	\label{threeparttable}
+		\input{Raw/threeparttable}
 	\end{threeparttable}
 \end{table}
 
 \section{Editing regular table layout}
 
-The table above was exported from Stata to {\LaTeX} using \texttt{esttab}, and the resulting \texttt{.tex} file contains the following code:
-
-\begin{tiny}
-\begin{verbatim}
-{
-\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{4}{c}}
-\hline\hline
-&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
-\hline
-Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
-& (754.4) & (772.1) & (767.4) & (1651.6) \\
-[1em]
-Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
-\hline
-Observations & 74 & 74 & 74 & 74 \\
-Model controls & No & Yes & Yes & Yes \\
-Make fixed effects& No & No & No & Yes \\
-\hline\hline 
-\multicolumn{5}{l}{\footnotesize \lipsum[1] }\\ 
-\end{tabular}
-}
-\end{verbatim}
-\end{tiny}
-
-
-Note that the note is added in the line that reads 
+If for some reason you are unable to install a new package, and still need to fit your table to page, you can still do so. The note in Table \ref{longnote} is added in the line of the \texttt{.tex} file that reads 
 
 \begin{verbatim}
 	\multicolumn{5}{l}{\footnotesize \lipsum[1]}\\
 \end{verbatim}
 
-The \texttt{\{l\}} option creates a left-justified column. Replacing this option with \texttt{\{p\{\textbackslash textwidth\}\}} will create a paragraph column instead, adding line breaks. The table will look like table \ref{notlongnote}. To remove the extra spacing, write \texttt{\{@\{\}p\{\textbackslash textwidth\}\}}, and the result will be spaced as in table \ref{notlongnote2}.
+The \texttt{\{l\}} option creates a left-justified column. Replacing this option with \texttt{\{p\{\textbackslash textwidth\}\}} will create a paragraph column (which adds line breaks) with width equal to \texttt{$\backslash$textwidth}. The resulting table will look like table \ref{notlongnote}. To remove the note margins, you write \texttt{\{@\{\}p\{\textbackslash textwidth\}\}} instead, and the result will be spaced as in table \ref{notlongnote2}.
 
 
 \begin{table}[H]
-	\caption{This table fits into the page}
+	\caption{This table also fits the page}
 	\label{notlongnote}
 {
 	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
@@ -181,20 +170,16 @@ The \texttt{\{l\}} option creates a left-justified column. Replacing this option
 \end{table}
 
 \begin{table}[H]
-	\caption{This table fits into the page and has no spacing in the notes}
+	\caption{This table also fits the page and has no spacing in the notes}
 	\label{notlongnote2}
 		\input{Raw/tbl_fittednote}
 \end{table}
 
-To export this table from Stata, you will need to use the option \texttt{postfoot} to manually input the {\LaTeX} code that closes your table. This means that all {\LaTeX} code that comes after the last line of the results, i.e.,
-\begin{verbatim}
-Make fixed effects& No & No & No & Yes \\
-\end{verbatim}
-Needs to be written manually. Code to do this can be found in \href{https://gist.github.com/luizaandrade/568f18158b9f154f531da55d98653c77}{this gist}.
+This table can be exported from Stata using similar code to the one that created Table \ref{threeparttable}. The code that created Table \ref{notlongnote2} can be found in \href{https://gist.github.com/luizaandrade/568f18158b9f154f531da55d98653c77}{this gist}.
 
 \section{Why \texttt{threeparttable} should be preferred}
 
-Sets the size of the note. For the note to be aligned with the table, it needs to be the same width. This will not happen with very wide or narrow tables, as below.
+As discussed, the options \texttt{\{@\{\}p\{\textbackslash textwidth\}\}} sets the width of the note so it's exactly equal to \texttt{\textbackslash textwidth}. For the note to be aligned with the table, the table needs to be the same width. This will not happen with very wide or narrow tables. Tables \ref{tbl_unfittednote} and \ref{tbl_narrownote} below were also created setting the width of the note to \texttt{\textbackslash textwidth}. However, because they have different numbers of columns, this width doesn't fit them well.
 
 \begin{table}[H]
 	\caption{Narrow table with paragraph on note}
@@ -208,7 +193,7 @@ Sets the size of the note. For the note to be aligned with the table, it needs t
 	\input{Raw/tbl_narrownote}
 \end{table}
 
-When a table is too wide the \texttt{adjustbox} package is used to fit it to table, the note is adjusted proportionally:
+Furthermore, when a table is too wide and the \texttt{adjustbox} package is used to fit it to table, the note width is adjusted proportionally:
 
 \begin{table}[H]
 	\caption{Wide table with paragraph on note}
@@ -218,7 +203,7 @@ When a table is too wide the \texttt{adjustbox} package is used to fit it to tab
 	\end{adjustbox}
 \end{table}
 
-In all of these cases, the solution is to adjust the note width manually, which requires finding out what the table width -- usually by trial and error, and adding it to the paragraph width. Table \ref was creating by adding the following width:
+In all of these cases, the solution is to adjust the note width manually, which requires finding out what the table width -- usually by trial and error -- and adding it to the paragraph width. Table \ref{tbl_widenote} was creating by adjusting the note width with the following code:
 
 \begin{verbatim}
 	\multicolumn{5}{p{1.3\textwidth}}
@@ -232,9 +217,9 @@ In all of these cases, the solution is to adjust the note width manually, which 
 	\end{adjustbox}
 \end{table}
  
-The same doesn't happen when using \texttt{threeparttable}, as it adjusts both the table and the note to fit the page:
+The same doesn't happen when using \texttt{threeparttable}, as it adjusts both the table and the note to fit the page. Tables \ref{tbl_fittednotenarrow} and \ref{tbl_fittednotewide} were created using the same \texttt{postfoot} code as Table \ref{threeparttable}. 
  
-\begin{table}[h]
+\begin{table}[H]
 	\centering
 	\caption{Narrow table with \texttt{threeparttable}}
 	\label{tbl_fittednotenarrow}
@@ -245,7 +230,7 @@ The same doesn't happen when using \texttt{threeparttable}, as it adjusts both t
 	\end{adjustbox}
 \end{table}
  
-\begin{table}[h]
+\begin{table}[H]
 	\caption{Wide table with \texttt{threeparttable}}
 	\label{tbl_fittednotewide}
 	\begin{adjustbox}{max width = \textwidth}
@@ -254,6 +239,8 @@ The same doesn't happen when using \texttt{threeparttable}, as it adjusts both t
 	\end{threeparttable}
 	\end{adjustbox}
 \end{table}
+
+In short, the advantage of using \texttt{threeparttable} is that it will fit the tables to the page automatically. Formatting a regular \texttt{tabular} object will necessarily require you to manually add the number of columns in your table and edit it every time a column is added or removed, and may also require adjusting the note width to be the same as the rest of the table through trial and error.
  
 \end{document}
 
