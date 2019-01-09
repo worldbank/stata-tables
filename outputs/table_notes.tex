@@ -21,54 +21,139 @@ Adjusting the width of table notes is a common source of problems when compiling
 \begin{table}[H]
 	\caption{This table does not fit into the page}
 	\label{longnote}
-	\input{tbl_longnote}
+	\input{Raw/tbl_longnote}
 \end{table}
 
+The table above was exported from Stata to {\LaTeX} using \texttt{esttab}, and the resulting \texttt{.tex} file contains the following code:
+
+\begin{tiny}
+	\begin{verbatim}
+	{
+	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+	\begin{tabular}{l*{4}{c}}
+	\hline\hline
+	&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
+	\hline
+	Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
+	& (754.4) & (772.1) & (767.4) & (1651.6) \\
+	[1em]
+	Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
+	\hline
+	Observations & 74 & 74 & 74 & 74 \\
+	Model controls & No & Yes & Yes & Yes \\
+	Make fixed effects& No & No & No & Yes \\
+	\hline\hline 
+	\multicolumn{5}{l}{\footnotesize \lipsum[1] }\\ 
+	\end{tabular}
+	}
+	\end{verbatim}
+\end{tiny}
+
+
 There are two difference ways to solve this issue: using the \texttt{threeparttable} package, and using regular table configurations. The only problem with using the \texttt{threeparttable} package is that you need to load one more package, but it's more flexible in dealing with wide tables and takes roughly the same coding in Stata as it would with regular tables. Using regular tables doesn't require any extra packages, but can be tricky to adjust for wide tables, and involves more hard coding of {\LaTeX} options in Stata. In particular, you need to enter the number of columns in your table, so if you add a new column, you will also need to edit the notes. Below are some examples of both.
+
+\section{The \texttt{threeparttable} package}
+
+To load the \texttt{threeparttable} package, add the following code to your preamble. The following code creates a similar table, but adjusts the text width to fit the page.
+
+\begin{verbatim}
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[flushleft]{threeparttable}
+
+\begin{document}
+\end{verbatim}
+
+\begin{tiny}
+	\begin{verbatim}
+	\begin{threeparttable}
+	
+	{
+	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+	
+	\begin{tabular}{l*{4}{c}}
+	\hline\hline
+	&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
+	\hline
+	Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
+	& (754.4) & (772.1) & (767.4) & (1651.6) \\
+	[1em]
+	Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
+	\hline
+	Observations & 74 & 74 & 74 & 74 \\
+	Model controls & No & Yes & Yes & Yes \\
+	Make fixed effects& No & No & No & Yes \\
+	\hline\hline 
+	\end{tabular}
+	
+	\begin{tablenotes} 
+	\footnotesize \item \lipsum[1] 
+	\end{tablenotes}
+	}
+	
+	
+	\end{threeparttable}
+	\end{verbatim}
+\end{tiny}
+
+
+\begin{table}[h]
+	\begin{threeparttable}
+		{
+			\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+			\begin{tabular}{l*{4}{c}}
+				\hline\hline
+				&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
+				\hline
+				Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
+				& (754.4) & (772.1) & (767.4) & (1651.6) \\
+				[1em]
+				Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
+				\hline
+				Observations & 74 & 74 & 74 & 74 \\
+				Model controls & No & Yes & Yes & Yes \\
+				Make fixed effects& No & No & No & Yes \\
+				\hline\hline 
+			\end{tabular}
+			\begin{tablenotes} 
+				\footnotesize \item \lipsum[1] 
+			\end{tablenotes}
+		}
+	\end{threeparttable}
+\end{table}
 
 \section{Editing regular table layout}
 
 The table above was exported from Stata to {\LaTeX} using \texttt{esttab}, and the resulting \texttt{.tex} file contains the following code:
 
+\begin{tiny}
 \begin{verbatim}
 {
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\begin{tabular}{l*{3}{c}}
+\begin{tabular}{l*{4}{c}}
 \hline\hline
-&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} \\
+&\multicolumn{1}{c}{(1)} &\multicolumn{1}{c}{(2)} &\multicolumn{1}{c}{(3)} &\multicolumn{1}{c}{(4)} \\
 \hline
-Positive Opportunity Cost& -0.189\sym{***}& -0.200\sym{***}& -0.196\sym{***}\\
-& (0.0153) & (0.0186) & (0.0182) \\
+Car type (1 = foreign) & 312.3 & 2774.0\sym{***} & 2615.7\sym{**} & 6692.0\sym{***}\\
+& (754.4) & (772.1) & (767.4) & (1651.6) \\
 [1em]
-Low education (Middle school or less)&& 0.0311 & 0.0257 \\
-&& (0.0262) & (0.0265) \\
-[1em]
-Young (18 to 25 years-old)&& 0.0180 & 0.0254 \\
-&& (0.0279) & (0.0272) \\
-[1em]
-Employed&&0.00851 & 0.0163 \\
-&& (0.0279) & (0.0272) \\
-[1em]
-High self-reported SES&& 0.0104 & 0.0214 \\
-&& (0.0402) & (0.0397) \\
-[1em]
-Constant&0.293\sym{***}&0.334\sym{***}&0.306\sym{***}\\
-& (0.0158) & (0.0455) & (0.0473) \\
+Constant & 6072.4\sym{***}& -11500.2\sym{**} & -2673.4 & 1982.2 \\ & (411.4) & (3472.3) & (6220.8) & (4579.7) \\
 \hline
-Observations&17439 &13959 &13959 \\
-Quartile controls& No &Yes &Yes \\
-Group fixed effects& No & No &Yes \\
-\hline\hline
-\multicolumn{4}{l}{\footnotesize \lipsum[1]}\\
+Observations & 74 & 74 & 74 & 74 \\
+Model controls & No & Yes & Yes & Yes \\
+Make fixed effects& No & No & No & Yes \\
+\hline\hline 
+\multicolumn{5}{l}{\footnotesize \lipsum[1] }\\ 
 \end{tabular}
 }
 \end{verbatim}
+\end{tiny}
 
 
 Note that the note is added in the line that reads 
 
 \begin{verbatim}
-	\multicolumn{4}{l}{\footnotesize \lipsum[1]}\\
+	\multicolumn{5}{l}{\footnotesize \lipsum[1]}\\
 \end{verbatim}
 
 The \texttt{\{l\}} option creates a left-justified column. Replacing this option with \texttt{\{p\{\textbackslash textwidth\}\}} will create a paragraph column instead, adding line breaks. The table will look like table \ref{notlongnote}. To remove the extra spacing, write \texttt{\{@\{\}p\{\textbackslash textwidth\}\}}, and the result will be spaced as in table \ref{notlongnote2}.
@@ -79,74 +164,96 @@ The \texttt{\{l\}} option creates a left-justified column. Replacing this option
 	\label{notlongnote}
 {
 	\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-	\begin{tabular}{l*{3}{c}}
+	\begin{tabular}{l*{4}{c}}
 		\hline\hline
-		&\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+		&\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
 		\hline
-		Positive Opportunity Cost&      -0.189\sym{***}&      -0.200\sym{***}&      -0.196\sym{***}\\
-		&    (0.0153)         &    (0.0186)         &    (0.0182)         \\
+		Car type (1 = foreign)     &    312.3         &   2774.0\sym{***}&   2615.7\sym{**} &   6692.0\sym{***}\\
+		&  (754.4)         &  (772.1)         &  (767.4)         & (1651.6)         \\
 		[1em]
-		Low education (Middle school or less)&                     &      0.0311         &      0.0257         \\
-		&                     &    (0.0262)         &    (0.0265)         \\
-		[1em]
-		Young (18 to 25 years-old)&                     &      0.0180         &      0.0254         \\
-		&                     &    (0.0279)         &    (0.0272)         \\
-		[1em]
-		Employed            &                     &     0.00851         &      0.0163         \\
-		&                     &    (0.0279)         &    (0.0272)         \\
-		[1em]
-		High self-reported SES&                     &      0.0104         &      0.0214         \\
-		&                     &    (0.0402)         &    (0.0397)         \\
-		[1em]
-		Constant            &       0.293\sym{***}&       0.334\sym{***}&       0.306\sym{***}\\
-		&    (0.0158)         &    (0.0455)         &    (0.0473)         \\
+		Constant        &   6072.4\sym{***}& -11500.2\sym{**} &  -2673.4         &   1982.2         \\
+		&  (411.4)         & (3472.3)         & (6220.8)         & (4579.7)         \\
 		\hline
-		Observations        &       17439         &       13959         &       13959         \\
-		Quartile controls   &          No         &         Yes         &         Yes         \\
-		Group fixed effects &          No         &          No         &         Yes         \\
-		\hline\hline
-		\multicolumn{4}{p{\textwidth}}{\footnotesize \lipsum[1]}\\
-	\end{tabular}
-}
+		Observations    &       74         &       74         &       74         &       74         \\
+		Model controls  &       No         &      Yes         &      Yes         &      Yes         \\
+		Make fixed effects&       No         &       No         &       No         &      Yes         \\
+		\hline\hline \multicolumn{5}{p{\textwidth}}{\footnotesize \lipsum[1] }\\ \end{tabular}}
 \end{table}
 
 \begin{table}[H]
 	\caption{This table fits into the page and has no spacing in the notes}
 	\label{notlongnote2}
-		\input{tbl_fittednote}
+		\input{Raw/tbl_fittednote}
 \end{table}
 
 To export this table from Stata, you will need to use the option \texttt{postfoot} to manually input the {\LaTeX} code that closes your table. This means that all {\LaTeX} code that comes after the last line of the results, i.e.,
 \begin{verbatim}
-	Group fixed effects & No & No & Yes \\
+Make fixed effects& No & No & No & Yes \\
 \end{verbatim}
 Needs to be written manually. Code to do this can be found in \href{https://gist.github.com/luizaandrade/568f18158b9f154f531da55d98653c77}{this gist}.
 
-\section{The \texttt{threeparttable} package}
+\section{Why \texttt{threeparttable} should be preferred}
 
-To load the \texttt{threeparttable} package, 
+Sets the size of the note. For the note to be aligned with the table, it needs to be the same width. This will not happen with very wide or narrow tables, as below.
 
-%\input{table9}
+\begin{table}[H]
+	\caption{Narrow table with paragraph on note}
+	\label{tbl_unfittednote}
+	\input{Raw/tbl_unfittednote}
+\end{table}
 
-%\begin{adjustbox}{max width = \textwidth}
-%	\input{table11}
-%\end{adjustbox}
+\begin{table}[H]
+	\caption{Wide table with paragraph on note}
+	\label{tbl_narrownote}
+	\input{Raw/tbl_narrownote}
+\end{table}
 
+When a table is too wide the \texttt{adjustbox} package is used to fit it to table, the note is adjusted proportionally:
 
-%\begin{table}[h]
-%	\begin{threeparttable}
-%		\input{table10}
-%	\end{threeparttable}
-%\end{table}
+\begin{table}[H]
+	\caption{Wide table with paragraph on note}
+	\label{tbl_narrownoteadj}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/tbl_narrownote}
+	\end{adjustbox}
+\end{table}
 
-%\begin{table}[h]
-%	\begin{adjustbox}{max width = \textwidth}
-%	\begin{threeparttable}
-%		\input{table13}
-%	\end{threeparttable}
-%	\end{adjustbox}
-%\end{table}
+In all of these cases, the solution is to adjust the note width manually, which requires finding out what the table width -- usually by trial and error, and adding it to the paragraph width. Table \ref was creating by adding the following width:
 
+\begin{verbatim}
+	\multicolumn{5}{p{1.3\textwidth}}
+\end{verbatim}
 
+\begin{table}[H]
+	\caption{Wide table with manually adjusted paragraph width}
+	\label{tbl_widenote}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/tbl_widenote}
+	\end{adjustbox}
+\end{table}
+ 
+The same doesn't happen when using \texttt{threeparttable}, as it adjusts both the table and the note to fit the page:
+ 
+\begin{table}[h]
+	\centering
+	\caption{Narrow table with \texttt{threeparttable}}
+	\label{tbl_fittednotenarrow}
+	\begin{adjustbox}{max width = \textwidth}
+	\begin{threeparttable}
+		\input{Raw/tbl_fittednotenarrow}
+	\end{threeparttable}
+	\end{adjustbox}
+\end{table}
+ 
+\begin{table}[h]
+	\caption{Wide table with \texttt{threeparttable}}
+	\label{tbl_fittednotewide}
+	\begin{adjustbox}{max width = \textwidth}
+	\begin{threeparttable}
+		\input{Raw/tbl_fittednotewide}
+	\end{threeparttable}
+	\end{adjustbox}
+\end{table}
+ 
 \end{document}
 
