@@ -26,7 +26,7 @@ sysuse census.dta , clear
 	reg divorce marriage pop i.region#i.binary
 		est sto reg4
 
-// Export tables ********************************
+// Export tables: Excel ********************************
 
 	global regressions reg1 reg2 reg3 reg4
 
