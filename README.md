@@ -48,7 +48,7 @@ Exporting results to individual `.tex` files for each table and importing them i
 
 #### estout
 
-`estout`, by Ben Jann, has lots of options. You can get it to do basically anything you want! The default table is pretty simple, and the [http://repec.sowi.unibe.ch/stata/estout/](documentation) is *huge*, but we've prepared a few go-to examples that solve the most common formatting needs for a LaTeX table.
+`estout`, by Ben Jann, has lots of options. You can get it to do basically anything you want! The default table is pretty simple, and the [documentation]( http://repec.sowi.unibe.ch/stata/estout/) is *huge*, but we've prepared a few go-to examples that solve the most common formatting needs for a LaTeX table.
 
 The `esttab` command also allows you to export nicely formatted tables to Word, Excel, csv and HTML, but the options vary from one format to the other.
 
