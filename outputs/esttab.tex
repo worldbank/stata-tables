@@ -1,0 +1,57 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage[flushleft]{threeparttable}
+\usepackage{booktabs}
+
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\begin{document}
+
+ 
+\begin{table}[H]
+	\caption{Default \texttt{esttab} table}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/esttab_label}
+	\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+	\caption{Drop variables from \texttt{esttab} table}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/esttab_scalar}
+	\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+	\caption{Custom model titles and notes with \texttt{esttab} table}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/esttab_titles}
+	\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+	\caption{Custom header with \texttt{esttab} table}
+	\begin{adjustbox}{max width = \textwidth}
+		\input{Raw/esttab_header}
+	\end{adjustbox}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\caption{\texttt{esttab} table with two panels}
+	\begin{adjustbox}{max width = \textwidth}
+		\begin{threeparttable}
+			\input{Raw/esttab_panel}
+		\end{threeparttable}
+	\end{adjustbox}
+\end{table}
+ 
+ 
+\end{document}
+
