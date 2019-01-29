@@ -6,7 +6,7 @@ Code and writing for blogpost about Stata tables
 
 Making tables is one of the most common tasks for researchers, yet it is inevitably one of the most frustrating. It is conceptually simple: all you have to do is put numbers and stars in squares! But getting from result to table more often than not turns out to be a massive pain, and when you come back to it later – in revision, for example – it's altogether too easy to find you have coded yourself into a nasty corner.
 
-We at DIME Analytics been making tables for almost a decade, and, well, there is no easy answer. Like most coding tasks, the answer is going to depend on what you need. But we've spent a lot of time thinking about it, and this has turned out to be really useful in planning and executing our workflows. In this post we are going to share (1) our framework for thinking about the task of coding tables; (2) two approaches to solving the problem; and (3) Stata software for getting the job done with outputs in both TeX and Excel.
+When it comes to best practices for exporting tables, well, there is no easy answer. Like most coding tasks, the answer is going to depend on what you need. We at DIME Analytics have spent a lot of time thinking about it, and this has turned out to be really useful in planning and executing our workflows. In this post we are going to share (1) our framework for thinking about the task of coding tables; (2) two approaches to solving the problem; and (3) Stata packages for getting the job done with outputs in both TeX and Excel.
 
 ## Coding for tables
 
