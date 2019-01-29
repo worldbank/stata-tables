@@ -38,17 +38,15 @@ For the second situation, we recommend an approach we call "soft-coded" tables. 
 \* Make sure you know whether stars are hardcoded or formatted, as this will affect your workflow. Hardcoded stars are good because they will paste with "values", but bad because they will not allow flexibility on the number of decimal places.
 
 
-## The software!
+## Stata packages
 
 ### Exporting to LaTeX
 
 Exporting results to individual `.tex` files for each table and importing them into a master document is the easiest way to create outputs when you are still making changes to the results. The tables only need to be formatted once, and the individual files will be replaced with the latest version of your regressions and data every time you run Stata. The greatest advantage of all this is that you only need to recompile the master document once, without any copy-pasting or opening multiple files to see all the new results at once.
 
-#### outreg2
-
 #### estout
 
-`estout`, by Ben Jann, has lots of options. You can get it to do basically anything you want! The default table is pretty simple, and the [documentation]( http://repec.sowi.unibe.ch/stata/estout/) is *huge*, but we've prepared a few go-to examples that solve the most common formatting needs for a LaTeX table.
+The `estout` package, by Ben Jann, has lots of options. You can get it to do basically anything you want! The default table is pretty simple, and the [documentation]( http://repec.sowi.unibe.ch/stata/estout/) is *huge*, but we've prepared a few go-to examples that solve the most common formatting needs for a LaTeX table.
 
 The `esttab` command also allows you to export nicely formatted tables to Word, Excel, csv and HTML, but the options vary from one format to the other.
 
@@ -57,6 +55,10 @@ The `esttab` command also allows you to export nicely formatted tables to Word, 
 If you're trying to create a _very_ specific table format, the easiest way to do it in a replicable manner is to write the complete LaTeX code for the table. This means saving any number that should be displayed as locals, and hardcoding the LaTeX code for the table. But instead of writing the number themselves, you just call the locals that were previously saved.
 
 `filewrite` allows you to write the LaTeX code in a do-file, then have Stata write the text file with the table, and save it as a `.tex` file. You can find an example of how to use it here.
+
+#### Other options
+
+The two commands above are our go-to solution to exporting tables to LaTeX. However, there are a few other options out there. [`outreg2`](http://repec.org/bocode/o/outreg2.html) also exports tables to `tex` formats, but we've found it harder to use and to find resources than `estout`. [`stata-tex`](https://github.com/paulnov/stata-tex) is another option for custom-tables, but takes some more setting up with Excel and Python. Finally, you can write a whole HTML, word of PDF document using different options for Stata markdown. Discussing these options would take yet another blog post, but you can check out the [dynamic documents](https://www.stata.com/new-in-stata/markdown/) and [texdoc](http://repec.sowi.unibe.ch/stata/texdoc/) documentation for more information.
 
 ### Exporting to excel
 
