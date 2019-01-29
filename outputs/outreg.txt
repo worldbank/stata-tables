@@ -1,0 +1,39 @@
+	(1)	(2)	(3)	(4)
+	reg1	reg2	reg3	reg4
+VARIABLES	divorce	medage	divorce	divorce
+				
+marriage	0.260***		0.190***	0.191***
+	(0.0597)		(0.0593)	(0.0574)
+pop	0.00271***		0.00342***	0.00325***
+	(0.000571)		(0.000572)	(0.000568)
+1b.region#0b.binary				0
+				(0)
+1b.region#1.binary				-4,910
+				(4,458)
+2.region#0b.binary				57.01
+				(4,698)
+2.region#1.binary				5,277
+				(4,038)
+3.region#0b.binary				3,224
+				(4,284)
+3.region#1.binary				8,209*
+				(4,066)
+4.region#0b.binary				4,465
+				(4,055)
+4.region#1.binary				13,461**
+				(5,244)
+2.region			6,363**	
+			(3,086)	
+3.region			9,216***	
+			(3,061)	
+4.region			9,627***	
+			(3,180)	
+popurban		1.34e-07**		
+		(5.65e-08)		
+Constant	-963.3	29.09***	-7,786***	-4,196
+	(1,548)	(0.296)	(2,592)	(3,399)
+				
+Observations	50	50	50	50
+R-squared	0.915	0.105	0.932	0.944
+Standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				

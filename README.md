@@ -10,14 +10,16 @@ When it comes to best practices for exporting tables, well, there is no easy ans
 
 ## Coding for tables
 
-There are lots of reasons you might want to export tables somewhere other than the Stata results window. You might be exploring regression results with various specifications, and not want to read them one-by-one. You might be preparing a report or paper for submission or publication. Depending on what you are doing _now_ and what you might need to do _in the future_, there are **[N]** main dimensions to think about before choosing a workflow. Before writing a single line of code, ask yourself:
+There are lots of reasons you might want to export tables somewhere other than the Stata results window, but they don't all justify the same approach. You might be exploring regression results with various specifications, and not want to read them one-by-one. You might be preparing a report or paper for submission or publication. Depending on what you are doing _now_ and what you might need to do _in the future_, there are **[N]** main dimensions to think about before choosing a workflow. Before writing a single line of code, ask yourself:
 
 - Do I need this output to be immediately shareable without postprocessing?
 - Do I need this output to be useful for publication, or just for reading?
 - Do I need to be able to adjust number formatting and rounding later?
 - Do I need to be able to adjust table layout and formatting later?
 - What will be the required workflow when I re-produce this table?
-- What if I alter models or parameters?
+- What if I alter models, parameters, or other core components?
+
+Different use cases have different answers to these questions. Therefore, you will need to adapt your coding approach to your needs.
 
 ## Two workflows for coding tables
 
@@ -41,6 +43,7 @@ For the second situation, we recommend an approach we call "soft-coded" tables. 
 ## Stata packages
 
 ### Exporting to LaTeX
+Two of the most commonly-used softwares for writing tables, `estout` and `outreg2`, are two of the top three most-downloaded softwares from SSC.
 
 Exporting results to individual `.tex` files for each table and importing them into a master document is the easiest way to create outputs when you are still making changes to the results. The tables only need to be formatted once, and the individual files will be replaced with the latest version of your regressions and data every time you run Stata. The greatest advantage of all this is that you only need to recompile the master document once, without any copy-pasting or opening multiple files to see all the new results at once.
 
@@ -64,13 +67,13 @@ The two commands above are our go-to solution to exporting tables to LaTeX. Howe
 
 #### xml_tab
 
-*xml_tab*, by Zurab Sajaia and Michael Lokshin, was for many years a good go-to command for exporting regression results to Excel. It has a syntax that could be reasonably minimized to a reasonable set of options to get what was basically a useable table. I
+`xml_tab`, by Zurab Sajaia and Michael Lokshin, was for many years a good go-to command for exporting regression results to Excel. It has a syntax that could be reasonably minimized to a reasonable set of options to get what was basically a useable table.
 
-However, due to Office updates, it seems to sometimes create unreadable files for some versions of Microsoft Excel, which is kind of the point. It was a sufficient hack to rename the file to .xls to make the underlying XML readable before, but now this doesn't seem to work on every machine.
+However, the version on SSC is now quite out of date.
 
 #### outwrite
 
-`outwrite`, a new command available on SSC TODO, is an attempt to take the best functionality and defaults from the above commands for the purpose of creating soft-coded tables. The primary purpose is to produce a simple, modern regression table for any set of regressions with minimal syntax. The secondary purpose of `outwrite` is to provide full support for two modern Stata features: interactions/categorical expressions (`i.`, `c.`, and `#`) and modern file output. It is built on top of the regression processing engine from `xml_tab`.
+`outwrite`, a new command available on SSC TODO, attempts to take the best functionality and defaults from the above commands for the purpose of creating _soft-coded_ tables. The primary purpose is to produce a simple, modern regression table for any set of regressions with minimal syntax. The secondary purpose of `outwrite` is to provide full support for two modern Stata features: interactions/categorical expressions (`i.`, `c.`, and `#`) and modern file output. It is built on top of the regression processing engine from `xml_tab`.
 
 By "minimal syntax", we mean this: in a Stata viewer window, the help file for `xml_tab` takes 727 lines. `outreg2` takes 1147 and `estout` takes 1647 lines. That is a lot of reading to figure out how to put a regression into Excel. As of this writing, the helpfile for `outwrite` takes 67 lines. (This may not be enough – install the current version of the software and let us know!)
 
