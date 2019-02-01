@@ -1,18 +1,34 @@
 	reg1	reg2	reg3	reg4
-	b	b	b	b
-marriage	.2599521		.189777	.1912112
-pop	.0027097		.003416	.0032463
-popurban		1.34e-07		
-1.region			0	
-2.region			6362.748	
-3.region			9215.597	
-4.region			9627.296	
-1.region#0.binary				0
-1.region#1.binary				-4909.579
-2.region#0.binary				57.012
-2.region#1.binary				5276.915
-3.region#0.binary				3224.045
-3.region#1.binary				8208.911
-4.region#0.binary				4464.919
-4.region#1.binary				13461.28
-_cons	-963.3429	29.09292	-7786.167	-4195.932
+	b/_star/se	b/_star/se	b/_star/se	b/_star/se
+marriage	.2599521 ***	 	.189777 **	.1912112 **
+	.0596835		.0593311	.0573823
+pop	.0027097 ***	 	.003416 ***	.0032463 ***
+	.0005713		.0005716	.0005679
+popurban	 	1.34e-07 *	 	 
+		5.65e-08		
+1.region	 	 	0 	 
+			.	
+2.region	 	 	6362.748 *	 
+			3085.875	
+3.region	 	 	9215.597 **	 
+			3061.086	
+4.region	 	 	9627.296 **	 
+			3180.457	
+1.region#0.binary	 	 	 	0 
+				.
+1.region#1.binary	 	 	 	-4909.579 
+				4458.18
+2.region#0.binary	 	 	 	57.012 
+				4698.355
+2.region#1.binary	 	 	 	5276.915 
+				4037.739
+3.region#0.binary	 	 	 	3224.045 
+				4284.25
+3.region#1.binary	 	 	 	8208.911 
+				4066.457
+4.region#0.binary	 	 	 	4464.919 
+				4054.92
+4.region#1.binary	 	 	 	13461.28 *
+				5243.646
+_cons	-963.3429 	29.09292 ***	-7786.167 **	-4195.932 
+	1547.852	.2962806	2591.717	3398.651

@@ -38,7 +38,7 @@ sysuse census.dta , clear
 	// estout
 	estout ${regressions} ///
 	using "outputs/estout.xls" ///
-	, replace
+	, replace c(b & _star se)
 
 	// xml_tab
 	xml_tab ${regressions} ///
