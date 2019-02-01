@@ -1,0 +1,16 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+Car type (1 = foreign)&    312.3         &   2774.0\sym{***}&   2615.7\sym{**} &   6692.0\sym{***}\\
+                &  (754.4)         &  (772.1)         &  (767.4)         & (1651.6)         \\
+[1em]
+Constant        &   6072.4\sym{***}& -11500.2\sym{**} &  -2673.4         &   1982.2         \\
+                &  (411.4)         & (3472.3)         & (6220.8)         & (4579.7)         \\
+\hline
+Observations    &       74         &       74         &       74         &       74         \\
+Model controls  &       No         &      Yes         &      Yes         &      Yes         \\
+Make fixed effects&       No         &       No         &       No         &      Yes         \\
+\hline\hline \multicolumn{5}{@{}p{\textwidth}}{\footnotesize \lipsum[1] }\\ \end{tabular}}
