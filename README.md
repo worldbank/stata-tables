@@ -1,4 +1,4 @@
-# IE Analytics: How to make nice tables in Stata without wasting time formatting?
+# How to make nice tables in Stata without wasting time formatting?
 
 ## Introduction
 
