@@ -1,10 +1,4 @@
-# Stata Tables
-
-Code and writing for blogpost about Stata tables
-
-## Blogpost
-
-### Introduction
+# Commands to export tables
 
 ### outreg
 
@@ -13,6 +7,8 @@ Code and writing for blogpost about Stata tables
 ### mktab
 
 ### outtex
+
+### filewrite
 
 ### estout
 
