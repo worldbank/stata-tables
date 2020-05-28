@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}        &\multicolumn{1}{c}{(2)}        &\multicolumn{1}{c}{(3)}        &\multicolumn{1}{c}{(4)}        \\
+                    &\multicolumn{1}{c}{Number of deaths}&\multicolumn{1}{c}{Number of deaths}&\multicolumn{1}{c}{Number of divorces}&\multicolumn{1}{c}{Number of divorces}\\
+\hline
+Number of marriages &               -0.0849         &                               &                 0.260\sym{***}&                 0.190\sym{**} \\
+                    &       [-0.189,0.0196]         &                               &         [0.140,0.380]         &        [0.0702,0.309]         \\
+[1em]
+Population          &               0.00949\sym{***}&                               &               0.00271\sym{***}&               0.00342\sym{***}\\
+                    &      [0.00849,0.0105]         &                               &     [0.00156,0.00386]         &     [0.00226,0.00457]         \\
+[1em]
+Urban population    &                               &               0.00992\sym{***}&                               &                               \\
+                    &                               &      [0.00922,0.0106]         &                               &                               \\
+[1em]
+Constant            &                 650.9         &                6464.6\sym{***}&                -963.3         &               -7786.2\sym{**} \\
+                    &      [-2059.8,3361.6]         &      [2805.9,10123.4]         &      [-4077.2,2150.5]         &    [-13009.4,-2562.9]         \\
+\hline
+Observations        &                    50         &                    50         &                    50         &                    50         \\
+Region controls     &                    No         &                    No         &                    No         &                   Yes         \\
+\hline\hline
+\multicolumn{5}{l}{\footnotesize 95\% confidence intervals in brackets}\\
+\multicolumn{5}{l}{\footnotesize Add a note here.}\\
+\multicolumn{5}{l}{\footnotesize Other custom note here.}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
