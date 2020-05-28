@@ -18,6 +18,10 @@ Code and writing for blogpost about Stata tables
 
 _estout_, by Ben Jann, has lots of options. You can get it to do basically anything you want!
 
+### stata-tex
+
+### est2tex
+
 ### xml_tab
 
 _xml_tab_, by Zurab Sajaia and Michael Lokshin, was for many years a good go-to command for exporting regression results to Excel. It has a syntax that could be reasonably minimized to a reasonable set of options to get what was basically a useable table.
