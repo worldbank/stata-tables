@@ -1,5 +1,7 @@
 # How to use this repository
 
+### [Blogpost - Nice and fast tables in Stata?](https://blogs.worldbank.org/impactevaluations/nice-and-fast-tables-stata?CID=WBW_AL_BlogNotification_EN_EXT)
+
 ## Overview
 - Find do-files with example code [here](https://github.com/bbdaniels/stata-tables/tree/master/do)
 - Find their outputs [here](https://github.com/bbdaniels/stata-tables/tree/master/outputs)
@@ -10,8 +12,6 @@ You can edit the template do-files to test the commands' features or create tabl
 - Download the files to your computer
 - Edit the line marked in the do-files to match your computer's file path
 - Have fun!
-
-### [Blogpost](https://blogs.worldbank.org/impactevaluations/nice-and-fast-tables-stata?CID=WBW_AL_BlogNotification_EN_EXT)
 
 # How to make nice tables in Stata without wasting time formatting?
 
