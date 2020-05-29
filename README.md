@@ -9,7 +9,7 @@
 
 ## Adapting code
 You can edit the template do-files to test the commands' features or create tables using your own data.
-- Click on `Clone or download` at the top rigth corner of this page
+- Click on `Clone or download` at the top right corner of this page
 - Download the files to your computer
 - Edit the line marked in the do-files to match your computer's file path
 - Have fun!
