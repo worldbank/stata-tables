@@ -6,6 +6,7 @@
 - Find do-files with example code [here](https://github.com/bbdaniels/stata-tables/tree/master/do)
 - Find their outputs [here](https://github.com/bbdaniels/stata-tables/tree/master/outputs)
 - Demo with code and tables for LaTeX is [here](https://github.com/bbdaniels/stata-tables/blob/master/LaTeX-tables-demo.pdf)
+  - A different approach that results in the same layout can be found in https://github.com/RRMaximiliano/stata-latex-tables
 
 ## Adapting code
 You can edit the template do-files to test the commands' features or create tables using your own data.
